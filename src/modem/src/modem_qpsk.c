@@ -87,22 +87,22 @@ void MODEM(_demodulate_soft_qpsk)(MODEM()         _q,
     int soft_bit;
     
     // compute soft value for first bit
-    LLR = -2.0f * cimagf(_x) * gamma;
+    LLR = 2.0f * cimagf(_x) * gamma;
     soft_bit = LLR*16 + 127;
     if (soft_bit > 255) soft_bit = 255;
     if (soft_bit <   0) soft_bit = 0;
     _soft_bits[0] = (unsigned char) ( soft_bit );
 
     // compute soft value for first bit
-    LLR = -2.0f * crealf(_x) * gamma;
+    LLR = 2.0f * crealf(_x) * gamma;
     soft_bit = LLR*16 + 127;
     if (soft_bit > 255) soft_bit = 255;
     if (soft_bit <   0) soft_bit = 0;
     _soft_bits[1] = (unsigned char) ( soft_bit );
 
     // re-modulate symbol and store state
-    *_s  = (crealf(_x) > 0 ? 0 : 1) +
-           (cimagf(_x) > 0 ? 0 : 2);
+    *_s  = (crealf(_x) < 0 ? 0 : 1) +
+           (cimagf(_x) < 0 ? 0 : 2);
     MODEM(_modulate_qpsk)(_q, *_s, &_q->x_hat);
     _q->r = _x;
 }
