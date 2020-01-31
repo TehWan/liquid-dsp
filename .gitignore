@@ -14,6 +14,7 @@ autom4te.cache
 aclocal.m4
 
 # ignore all auto-generated targets
+autotest.json
 autotest_include.h
 benchmark
 benchmark_include.h
