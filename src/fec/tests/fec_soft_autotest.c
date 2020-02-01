@@ -73,7 +73,7 @@ void fec_test_soft_codec(fec_scheme _fs,
     }
 
     // encode message
-    fec_encode(q, _n, msg, msg_enc);
+    fec_encode(q, msg, _n, msg_enc);
 
     // convert to soft bits
     for (i=0; i<n_enc; i++) {
@@ -91,7 +91,7 @@ void fec_test_soft_codec(fec_scheme _fs,
     msg_soft[0] = 255 - msg_soft[0];
 
     // decode message
-    fec_decode_soft(q, _n, msg_soft, msg_dec);
+    fec_decode_soft(q, msg_soft, _n, msg_dec);
 
     // validate output
     CONTEND_SAME_DATA(msg,msg_dec,_n);

@@ -123,10 +123,10 @@ void fec_encode_bench(
     // start trials
     getrusage(RUSAGE_SELF, _start);
     for (i=0; i<(*_num_iterations); i++) {
-        fec_encode(q,_n,msg,msg_enc);
-        fec_encode(q,_n,msg,msg_enc);
-        fec_encode(q,_n,msg,msg_enc);
-        fec_encode(q,_n,msg,msg_enc);
+        fec_encode(q,msg,_n,msg_enc);
+        fec_encode(q,msg,_n,msg_enc);
+        fec_encode(q,msg,_n,msg_enc);
+        fec_encode(q,msg,_n,msg_enc);
     }
     getrusage(RUSAGE_SELF, _finish);
     *_num_iterations *= 4;

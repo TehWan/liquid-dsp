@@ -43,7 +43,7 @@ void autotest_hamming84_codec()
         fec_print(q);
 
     // encode message
-    fec_encode(q, n, msg, msg_enc);
+    fec_encode(q, msg, n, msg_enc);
     
     // corrupt encoded message
     msg_enc[0] ^= 0x04; // position 5
@@ -56,7 +56,7 @@ void autotest_hamming84_codec()
     msg_enc[7] ^= 0x10; //
 
     // decode message
-    fec_decode(q, n, msg_enc, msg_dec);
+    fec_decode(q, msg_enc, n, msg_dec);
 
     // validate data are the same
     CONTEND_SAME_DATA(msg, msg_dec, n);

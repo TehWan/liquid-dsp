@@ -59,7 +59,7 @@ void autotest_reedsolomon_223_255()
         fec_print(q);
 
     // encode message
-    fec_encode(q, dec_msg_len, msg_org, msg_enc);
+    fec_encode(q, msg_org, dec_msg_len, msg_enc);
     
     // corrupt encoded message; can withstand up to 16 symbol errors
     memmove(msg_rec, msg_enc, enc_msg_len*sizeof(unsigned char));
@@ -67,7 +67,7 @@ void autotest_reedsolomon_223_255()
         msg_rec[i] ^= 0x75;
 
     // decode message
-    fec_decode(q, dec_msg_len, msg_rec, msg_dec);
+    fec_decode(q, msg_rec, dec_msg_len, msg_dec);
 
     // validate data are the same
     CONTEND_SAME_DATA(msg_org, msg_dec, dec_msg_len);

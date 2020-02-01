@@ -69,13 +69,13 @@ void fec_test_codec(fec_scheme _fs, unsigned int _n, void * _opts)
     }
 
     // encode message
-    fec_encode(q,_n,msg,msg_enc);
+    fec_encode(q,msg,_n,msg_enc);
 
     // channel: add single error
     msg_enc[0] ^= 0x01;
 
     // decode message
-    fec_decode(q,_n,msg_enc,msg_dec);
+    fec_decode(q,msg_enc,_n,msg_dec);
 
     // validate output
     CONTEND_SAME_DATA(msg,msg_dec,_n);

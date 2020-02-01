@@ -43,7 +43,7 @@ void autotest_rep5_codec()
         fec_print(q);
 
     // encode message
-    fec_encode(q, n, msg, msg_enc);
+    fec_encode(q, msg, n, msg_enc);
     
     // corrupt encoded message, but no so much that it
     // can't be decoded
@@ -72,7 +72,7 @@ void autotest_rep5_codec()
     msg_enc[19] = ~msg_enc[19];
 
     // decode message
-    fec_decode(q, n, msg_enc, msg_dec);
+    fec_decode(q, msg_enc, n, msg_dec);
 
     // validate data are the same
     CONTEND_SAME_DATA(msg, msg_dec, n);

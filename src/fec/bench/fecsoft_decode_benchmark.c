@@ -127,7 +127,7 @@ void fecsoft_decode_bench(
         msg[i] = rand() & 0xff;
 
     // encode message
-    fec_encode(q,_n,msg,msg_enc);
+    fec_encode(q,msg,_n,msg_enc);
 
     // expand to soft bits
     for (i=0; i<n_enc; i++) {
@@ -144,10 +144,10 @@ void fecsoft_decode_bench(
     // start trials
     getrusage(RUSAGE_SELF, _start);
     for (i=0; i<(*_num_iterations); i++) {
-        fec_decode_soft(q, _n, msg_soft, msg_dec);
-        fec_decode_soft(q, _n, msg_soft, msg_dec);
-        fec_decode_soft(q, _n, msg_soft, msg_dec);
-        fec_decode_soft(q, _n, msg_soft, msg_dec);
+        fec_decode_soft(q, msg_soft, _n, msg_dec);
+        fec_decode_soft(q, msg_soft, _n, msg_dec);
+        fec_decode_soft(q, msg_soft, _n, msg_dec);
+        fec_decode_soft(q, msg_soft, _n, msg_dec);
     }
     getrusage(RUSAGE_SELF, _finish);
     *_num_iterations *= 4;

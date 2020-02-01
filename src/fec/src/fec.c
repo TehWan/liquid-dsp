@@ -698,12 +698,12 @@ void fec_print(fec _q)
 
 // encode a block of data using a fec scheme
 //  _q              :   fec object
-//  _dec_msg_len    :   decoded message length
 //  _msg_dec        :   decoded message
+//  _dec_msg_len    :   decoded message length
 //  _msg_enc        :   encoded message
 void fec_encode(fec _q,
-                unsigned int _dec_msg_len,
                 unsigned char * _msg_dec,
+                unsigned int _dec_msg_len,
                 unsigned char * _msg_enc)
 {
     // call internal encoding method
@@ -712,12 +712,12 @@ void fec_encode(fec _q,
 
 // decode a block of data using a fec scheme
 //  _q              :   fec object
-//  _dec_msg_len    :   decoded message length
 //  _msg_enc        :   encoded message
+//  _dec_msg_len    :   decoded message length
 //  _msg_dec        :   decoded message
 void fec_decode(fec _q,
-                unsigned int _dec_msg_len,
                 unsigned char * _msg_enc,
+                unsigned int _dec_msg_len,
                 unsigned char * _msg_dec)
 {
     // call internal decoding method
@@ -726,12 +726,12 @@ void fec_decode(fec _q,
 
 // decode a block of data using a fec scheme
 //  _q              :   fec object
-//  _dec_msg_len    :   decoded message length
 //  _msg_enc        :   encoded message
+//  _dec_msg_len    :   decoded message length
 //  _msg_dec        :   decoded message
 void fec_decode_soft(fec _q,
-                     unsigned int _dec_msg_len,
                      unsigned char * _msg_enc,
+                     unsigned int _dec_msg_len,
                      unsigned char * _msg_dec)
 {
     if (_q->decode_soft_func != NULL) {
@@ -756,7 +756,7 @@ void fec_decode_soft(fec _q,
         }
 
         // use hard-decoding method
-        fec_decode(_q, _dec_msg_len, msg_enc_hard, _msg_dec);
+        fec_decode(_q, msg_enc_hard, _dec_msg_len, _msg_dec);
     }
 }
 

@@ -1169,32 +1169,32 @@ void fec_print(fec _q);
 
 // encode a block of data using a fec scheme
 //  _q              :   fec object
-//  _dec_msg_len    :   decoded message length
 //  _msg_dec        :   decoded message
+//  _dec_msg_len    :   decoded message length
 //  _msg_enc        :   encoded message
 void fec_encode(fec _q,
-                unsigned int _dec_msg_len,
                 unsigned char * _msg_dec,
+                unsigned int _dec_msg_len,
                 unsigned char * _msg_enc);
 
 // decode a block of data using a fec scheme
 //  _q              :   fec object
-//  _dec_msg_len    :   decoded message length
 //  _msg_enc        :   encoded message
+//  _dec_msg_len    :   decoded message length
 //  _msg_dec        :   decoded message
 void fec_decode(fec _q,
-                unsigned int _dec_msg_len,
                 unsigned char * _msg_enc,
+                unsigned int _dec_msg_len,
                 unsigned char * _msg_dec);
 
 // decode a block of data using a fec scheme (soft decision)
 //  _q              :   fec object
-//  _dec_msg_len    :   decoded message length
 //  _msg_enc        :   encoded message (soft bits)
+//  _dec_msg_len    :   decoded message length
 //  _msg_dec        :   decoded message
 void fec_decode_soft(fec _q,
-                     unsigned int _dec_msg_len,
                      unsigned char * _msg_enc,
+                     unsigned int _dec_msg_len,
                      unsigned char * _msg_dec);
 
 // 

@@ -124,15 +124,15 @@ void fec_decode_bench(
         msg[i] = rand() & 0xff;
 
     // encode message
-    fec_encode(q,_n,msg,msg_enc);
+    fec_encode(q,msg,_n,msg_enc);
 
     // start trials
     getrusage(RUSAGE_SELF, _start);
     for (i=0; i<(*_num_iterations); i++) {
-        fec_decode(q,_n,msg_enc,msg_dec);
-        fec_decode(q,_n,msg_enc,msg_dec);
-        fec_decode(q,_n,msg_enc,msg_dec);
-        fec_decode(q,_n,msg_enc,msg_dec);
+        fec_decode(q,msg_enc,_n,msg_dec);
+        fec_decode(q,msg_enc,_n,msg_dec);
+        fec_decode(q,msg_enc,_n,msg_dec);
+        fec_decode(q,msg_enc,_n,msg_dec);
     }
     getrusage(RUSAGE_SELF, _finish);
     *_num_iterations *= 4;

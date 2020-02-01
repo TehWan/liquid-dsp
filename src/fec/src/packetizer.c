@@ -280,8 +280,8 @@ void packetizer_encode(packetizer            _p,
     for (i=0; i<_p->plan_len; i++) {
         // run the encoder: buffer[0] > buffer[1]
         fec_encode(_p->plan[i].f,
-                   _p->plan[i].dec_msg_len,
                    _p->buffer_0,
+                   _p->plan[i].dec_msg_len,
                    _p->buffer_1);
 
         // run the interleaver: buffer[1] > buffer[0]
@@ -317,8 +317,8 @@ int packetizer_decode(packetizer            _p,
 
         // run the decoder: buffer[1] > buffer[0]
         fec_decode(_p->plan[i-1].f,
-                   _p->plan[i-1].dec_msg_len,
                    _p->buffer_1,
+                   _p->plan[i-1].dec_msg_len,
                    _p->buffer_0);
     }
 
@@ -367,8 +367,8 @@ int packetizer_decode_soft(packetizer            _p,
 
     // run the decoder: buffer[1] > buffer[0]
     fec_decode_soft(_p->plan[1].f,
-                    _p->plan[1].dec_msg_len,
                     _p->buffer_1,
+                    _p->plan[1].dec_msg_len,
                     _p->buffer_0);
 
     // 
@@ -382,8 +382,8 @@ int packetizer_decode_soft(packetizer            _p,
 
     // run the decoder: buffer[1] > buffer[0]
     fec_decode(_p->plan[0].f,
-               _p->plan[0].dec_msg_len,
                _p->buffer_1,
+               _p->plan[0].dec_msg_len,
                _p->buffer_0);
 
     // remove sequence whitening
