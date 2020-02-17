@@ -82,7 +82,7 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 
 # AC_CHECK_LIB (library, function, [action-if-found], [action-if-not-found], [other-libraries])
-AC_CHECK_LIB([c],[main],[],[AC_MSG_ERROR(Could not use standard C library)],   [])
+#AC_CHECK_LIB([c],[main],[],[AC_MSG_ERROR(Could not use standard C library)],   [])
 AC_CHECK_LIB([m],[main],[],[AC_MSG_ERROR(Could not use standard math library)],[])
 
 # AC_CHECK_FUNC(function, [action-if-found], [action-if-not-found])
@@ -92,7 +92,7 @@ AC_CHECK_FUNCS([sinf cosf expf cargf cexpf crealf cimagf sqrtf],[],
                [AC_MSG_ERROR(Could not use special math functions)],)
 
 # Check for necessary header files
-AC_CHECK_HEADERS([stdio.h stdlib.h complex.h string.h getopt.h sys/resource.h float.h inttypes.h limits.h stdlib.h string.h unistd.h],[],
+AC_CHECK_HEADERS([stdio.h stdlib.h complex.h string.h float.h inttypes.h limits.h stdlib.h string.h],[],
                  [AC_MSG_ERROR(Could not use standard headers)])
 
 # Check for optional header files, libraries, programs
