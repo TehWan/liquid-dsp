@@ -33,7 +33,7 @@
 
 #define min(a,b) ((a)<(b)?(a):(b))
 
-// 
+//
 // forward declaration of internal methods
 //
 
@@ -105,7 +105,7 @@ MSRESAMP() MSRESAMP(_create)(float _r,
     q->num_halfband_stages = 0;
     switch(q->type) {
         case LIQUID_RESAMP_INTERP:
-            while (q->rate_arbitrary > 2.0f) {
+            while (q->rate_arbitrary >= 2.0f) {
                 q->num_halfband_stages++;
                 q->rate_halfband  *= 2.0f;
                 q->rate_arbitrary *= 0.5f;
@@ -173,14 +173,14 @@ void MSRESAMP(_print)(MSRESAMP() _q)
                                                  1<<_q->num_halfband_stages);
     printf("    arbitrary rate      : %12.10f\n", _q->rate_arbitrary);
     printf("    stages:\n");
-    
+
     //float delay_halfband  = MSRESAMP2(_get_delay)(_q->halfband_resamp);
     //float delay_arbitrary = RESAMP(_get_delay)(_q->arbitrary_resamp);
 
     // print each stage
     unsigned int stage=0;
     float r = 1.0f; // accumulated rate
-    
+
     // arbitrary (interpolator)
     if (_q->type == LIQUID_RESAMP_INTERP) {
         float rate = _q->rate_arbitrary;
@@ -277,7 +277,7 @@ void MSRESAMP(_execute)(MSRESAMP()     _q,
     }
 }
 
-// 
+//
 // internal methods
 //
 
@@ -296,19 +296,28 @@ void MSRESAMP(_interp_execute)(MSRESAMP()     _q,
     unsigned int nw;
     unsigned int ny = 0;
 
-    // operate one sample at a time so that we don't overflow the internal
-    // buffer
-    for (i=0; i<_nx; i++) {
-        // run arbitrary resampler
-        RESAMP(_execute)(_q->arbitrary_resamp, _x[i], _q->buffer, &nw);
+    // // operate one sample at a time so that we don't overflow the internal
+    // // buffer
+    // for (i=0; i<_nx; i++) {
+    //     // run arbitrary resampler
+    //     RESAMP(_execute)(_q->arbitrary_resamp, _x[i], _q->buffer, &nw);
+    //
+    //     // run multi-stage half-band resampler on each output sample
+    //     unsigned int k;
+    //     for (k=0; k<nw; k++) {
+    //         MSRESAMP2(_execute)(_q->halfband_resamp, &_q->buffer[k], &_y[ny]);
+    //
+    //         // increase output counter by halfband interpolation rate
+    //         ny += 1 << _q->num_halfband_stages;
+    //     }
+    // }
+    for (i = 0; i < _nx; i++) {
+        MSRESAMP2(_execute)(_q->halfband_resamp, &_x[i], _q->buffer);
 
-        // run multi-stage half-band resampler on each output sample
         unsigned int k;
-        for (k=0; k<nw; k++) {
-            MSRESAMP2(_execute)(_q->halfband_resamp, &_q->buffer[k], &_y[ny]);
-
-            // increase output counter by halfband interpolation rate
-            ny += 1 << _q->num_halfband_stages;
+        for (k = 0; k < (1 << _q->num_halfband_stages); k++) {
+            RESAMP(_execute)(_q->arbitrary_resamp, _q->buffer[k], &_y[ny], &nw);
+            ny += nw;
         }
     }
 
@@ -358,4 +367,3 @@ void MSRESAMP(_decim_execute)(MSRESAMP()     _q,
     // set return value for number of samples written
     *_ny = ny;
 }
-
